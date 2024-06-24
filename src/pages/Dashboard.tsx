@@ -8,51 +8,37 @@ import ChatCard from '../components/Chat/ChatCard';
 import MapOne from '../components/Maps/MapOne';
 import userSix from '../images/user/user-06.png';
 import { Link } from 'react-router-dom';
+import { TempIcon, HumidityIcon } from './UiElements/Icons';
 
 
 
 const Dashboard: React.FC = () => {
+  const cardIcons: cardIcons = {
+    TEMP_ICON: <TempIcon />,
+    HUMIDITY_ICON: <HumidityIcon />,
+  }
+
+  const cardStats = [
+    { title: "Temperature", total: "3.47", rate: "0.43", levelUp: true, icon: 'TEMP_ICON' },
+    { title: "Humidity", total: "3.46", rate: "0.43", levelDown: true, icon: 'HUMIDITY_ICON' },
+  ];
+  const imgUrl = new URL('/images/camera1/7.jpg', import.meta.url).href
+
   return (
     <>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-7.5">
-        <CardDataStats title="Current Temp" total="3.456" rate="0.43%" levelUp>
-          <svg fill="#000000" width="24px" height="24px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg">
-            <title>temperature-three-quarters</title>
-            <path d="M20.75 6.008c0-6.246-9.501-6.248-9.5 0v13.238c-1.235 1.224-2 2.921-2 4.796 0 3.728 3.022 6.75 6.75 6.75s6.75-3.022 6.75-6.75c0-1.875-0.765-3.572-2-4.796l-0.001-0zM16 29.25c-2.9-0-5.25-2.351-5.25-5.251 0-1.553 0.674-2.948 1.745-3.909l0.005-0.004 0.006-0.012c0.13-0.122 0.215-0.29 0.231-0.477l0-0.003c0.001-0.014 0.007-0.024 0.008-0.038l0.006-0.029v-13.52c-0.003-0.053-0.005-0.115-0.005-0.178 0-1.704 1.381-3.085 3.085-3.085 0.060 0 0.12 0.002 0.179 0.005l-0.008-0c0.051-0.003 0.11-0.005 0.17-0.005 1.704 0 3.085 1.381 3.085 3.085 0 0.063-0.002 0.125-0.006 0.186l0-0.008v13.52l0.006 0.029 0.007 0.036c0.015 0.191 0.101 0.36 0.231 0.482l0 0 0.006 0.012c1.076 0.966 1.75 2.361 1.75 3.913 0 2.9-2.35 5.25-5.25 5.251h-0zM16.75 21.367v-11.522c0-0.414-0.336-0.75-0.75-0.75s-0.75 0.336-0.75 0.75v0 11.522c-1.164 0.338-2 1.394-2 2.646 0 1.519 1.231 2.75 2.75 2.75s2.75-1.231 2.75-2.75c0-1.252-0.836-2.308-1.981-2.641l-0.019-0.005zM26.5 2.25c-1.795 0-3.25 1.455-3.25 3.25s1.455 3.25 3.25 3.25c1.795 0 3.25-1.455 3.25-3.25v0c-0.002-1.794-1.456-3.248-3.25-3.25h-0zM26.5 7.25c-0.966 0-1.75-0.784-1.75-1.75s0.784-1.75 1.75-1.75c0.966 0 1.75 0.784 1.75 1.75v0c-0.001 0.966-0.784 1.749-1.75 1.75h-0z"></path>
-          </svg>
-        </CardDataStats>
-        <CardDataStats title="Current Humidity" total="45.2%" rate="-4.35%" levelUp>
-          <svg fill="#000000" width="24px" height="24px" viewBox="0 0 64 64" version="1.1" xmlSpace="preserve" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
-            <g id="cloudy_sunny" />
-            <g id="bright" />
-            <g id="cloudy" />
-            <g id="high_rainfall" />
-            <g id="windy" />
-            <g id="rain_with_thunder" />
-            <g id="clear_night" />
-            <g id="cloudy_night" />
-            <g id="moon" />
-            <g id="sun" />
-            <g id="rainy_night" />
-            <g id="windy_night" />
-            <g id="night_rain_thunder" />
-            <g id="windy_rain" />
-            <g id="temperature" />
-            <g id="humidity">
-              <g>
-                <path d="M49.7,35.9C47.3,21.2,29.5,4,28.7,3.3c-0.4-0.4-1-0.4-1.4,0C26.4,4.1,6,23.7,6,39c0,12.1,9.9,22,22,22    c3.4,0,6.7-0.8,9.7-2.3c2.1,1.4,4.6,2.3,7.3,2.3c7.2,0,13-5.8,13-13C58,42.5,54.6,37.8,49.7,35.9z M28,59C17,59,8,50,8,39    C8,26.1,24.4,9,28,5.4C31.3,8.7,45,23,47.6,35.3C46.7,35.1,45.9,35,45,35c-7.2,0-13,5.8-13,13c0,3.7,1.5,7,4,9.3    C33.5,58.4,30.8,59,28,59z M45,59c-6.1,0-11-4.9-11-11s4.9-11,11-11s11,4.9,11,11S51.1,59,45,59z" />
-                <path d="M28,54c-8.3,0-15-6.7-15-15c0-0.6-0.4-1-1-1s-1,0.4-1,1c0,9.4,7.6,17,17,17c0.6,0,1-0.4,1-1S28.6,54,28,54z" />
-                <path d="M48.4,40.1c-0.5-0.2-1.1,0-1.3,0.5l-6,14c-0.2,0.5,0,1.1,0.5,1.3C41.7,56,41.9,56,42,56c0.4,0,0.8-0.2,0.9-0.6l6-14    C49.1,40.9,48.9,40.3,48.4,40.1z" />
-                <path d="M44,44c0-1.7-1.3-3-3-3s-3,1.3-3,3s1.3,3,3,3S44,45.7,44,44z M40,44c0-0.6,0.4-1,1-1s1,0.4,1,1s-0.4,1-1,1S40,44.6,40,44z    " />
-                <path d="M49,49c-1.7,0-3,1.3-3,3s1.3,3,3,3s3-1.3,3-3S50.7,49,49,49z M49,53c-0.6,0-1-0.4-1-1s0.4-1,1-1s1,0.4,1,1S49.6,53,49,53z    " />
-              </g>
-            </g>
-            <g id="air_pressure" />
-            <g id="low_rainfall" />
-            <g id="moderate_rainfall" />
-            <g id="Sunset" />
-          </svg>
-        </CardDataStats>
+        {cardStats.map((item, index) => (
+          <CardDataStats
+            title={item.title}
+            total={item.total?.toString()}
+            rate={item.rate?.toString()}
+            key={index}
+            levelDown={item?.levelDown}
+            levelUp={item?.levelUp}
+          >
+            <>{cardIcons[item.icon as keyof typeof cardIcons]}</>
+          </CardDataStats>
+        ))}
         <CardDataStats title="CPU Temp" total="2.450" rate="2.59%" levelUp>
           <svg fill="#000000" width="24px" height="24px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg">
             <title>temperature-three-quarters</title>
@@ -66,7 +52,7 @@ const Dashboard: React.FC = () => {
             </g>
           </svg>
         </CardDataStats>
-      </div>
+      </div >
 
       <div className="mt-4 grid grid-cols-12 gap-4 md:mt-6 md:gap-6 2xl:mt-7.5 2xl:gap-7.5">
         <div className="col-span-12 rounded-sm border border-stroke bg-white py-6 px-7.5 shadow-default dark:border-strokedark dark:bg-boxdark xl:col-span-7">
@@ -74,7 +60,7 @@ const Dashboard: React.FC = () => {
             <div className="px-4 pb-6 text-center lg:pb-8 xl:pb-11.5">
               <div className="relative z-30 mx-auto mt-22 h-30 w-full max-w-30 rounded-full bg-white/20 p-1 backdrop-blur sm:h-44 sm:max-w-44 sm:p-3">
                 <div className="relative drop-shadow-2">
-                  <img src={userSix} alt="profile" />
+                  <img src={imgUrl} alt="profile" />
                   <label
                     htmlFor="profile"
                     className="absolute bottom-0 right-0 flex h-8.5 w-8.5 cursor-pointer items-center justify-center rounded-full bg-primary text-white hover:bg-opacity-90 sm:bottom-2 sm:right-2"
@@ -100,18 +86,12 @@ const Dashboard: React.FC = () => {
                         fill=""
                       />
                     </svg>
-                    <input
-                      type="file"
-                      name="profile"
-                      id="profile"
-                      className="sr-only"
-                    />
                   </label>
                 </div>
               </div>
               <div className="mt-4">
                 <h3 className="mb-1.5 text-2xl font-semibold text-black dark:text-white">
-                  Danish Heilium
+                  Pepper Plants
                 </h3>
                 <p className="font-medium">Ui/Ux Designer</p>
                 <div className="mx-auto mt-4.5 mb-5.5 grid max-w-94 grid-cols-3 rounded-md border border-stroke py-2.5 shadow-1 dark:border-strokedark dark:bg-[#37404F]">
