@@ -17,7 +17,11 @@
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+
+    /* Vite */
+    "composite": true,
+    "types": ["node", "vite/client"]
   },
   "include": ["src", "src/lib.d.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]

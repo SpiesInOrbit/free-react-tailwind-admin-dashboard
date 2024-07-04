@@ -7,6 +7,7 @@ import Dashboard from './pages/Dashboard';
 import Settings from './pages/Settings';
 import DefaultLayout from './layout/DefaultLayout';
 
+
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
   const { pathname } = useLocation();
@@ -22,6 +23,7 @@ function App() {
   return loading ? (
     <Loader />
   ) : (
+
     <DefaultLayout>
       <Routes>
         <Route

@@ -1,17 +1,13 @@
-import React, { useState, createContext } from 'react';
-import { QueryClient, QueryClientProvider } from "react-query";
-import CardDataStats from '../components/CardDataStats';
-import ChartOne from '../components/Charts/ChartOne';
-import ChartThree from '../components/Charts/ChartThree';
-import ChartTwo from '../components/Charts/ChartTwo';
-import ChatCard from '../components/Chat/ChatCard';
-import MapOne from '../components/Maps/MapOne';
+import React, { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
+import CardDataStats from '../components/CardDataStats';
 import { TempIcon, CameraIcon, HumidityIcon } from './UiElements/Icons';
+import Switches from '../components/Switchers/Switches';
 
 
 
 const Dashboard: React.FC = () => {
+
   const cardIcons: cardIcons = {
     TEMP_ICON: <TempIcon />,
     HUMIDITY_ICON: <HumidityIcon />,
@@ -24,7 +20,7 @@ const Dashboard: React.FC = () => {
   const imgUrl = new URL('/images/camera1/7.jpg', import.meta.url).href
 
   return (
-    <>
+    <div>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-7.5">
         {cardStats.map((item, index) => (
           <CardDataStats
@@ -52,7 +48,6 @@ const Dashboard: React.FC = () => {
           </svg>
         </CardDataStats>
       </div >
-
       <div className="mt-4 grid grid-cols-12 gap-8 md:mt-6 md:gap-6 2xl:mt-7.5 2xl:gap-10">
         <div className="col-span-full rounded-sm border border-stroke bg-white py-6 px-7.5 shadow-default dark:border-strokedark dark:bg-boxdark">
           <div className="col-span-12 xl:col-span-8">
@@ -104,17 +99,22 @@ const Dashboard: React.FC = () => {
                   <h4 className="font-semibold text-black dark:text-white">
                     Hydroponic Grow
                   </h4>
-                  <p className="mt-4.5">
+                  <div className="mt-4.5">
                     <h3 className="font-semibold">Started on 2024-06-24</h3>
                     <p>Lost 2 to mold and continue periodic h2o2 treatments to contain further outbreaks. Estimate 10 days until transplant.</p>
-                  </p>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </>
+      <div className="mt-4 grid grid-cols-12 gap-8 md:mt-6 md:gap-6 2xl:mt-7.5 2xl:gap-10">
+        <div className="col-span-full rounded-sm border border-stroke bg-white py-6 px-7.5 shadow-default dark:border-strokedark dark:bg-boxdark">
+          <Switches />
+        </div>
+      </div>
+    </div>
   );
 };
 
