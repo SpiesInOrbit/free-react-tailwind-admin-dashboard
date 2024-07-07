@@ -19,6 +19,7 @@ const Switch: React.FC<SwitchProps> = ({
   checked,
 }) => {
   const [status, setStatus] = useState<string | null>(null);
+  const [switchPosition, setSwitchPosition] = useState<boolean>(checked);
 
   const {
     mutate: switchMutate,
@@ -31,6 +32,7 @@ const Switch: React.FC<SwitchProps> = ({
     },
     {
       onSuccess: (res) => {
+        setSwitchPosition(!switchPosition);
         console.log(res);
       },
       onError: (err) => {
@@ -49,7 +51,7 @@ const Switch: React.FC<SwitchProps> = ({
         switchMutate();
       }
       catch (err) {
-        console.log(err);
+        console.error(err);
       }
     }
     // setEnabled(() => mutationRes.data.lastvalue === 'on');
@@ -66,7 +68,7 @@ const Switch: React.FC<SwitchProps> = ({
     )
   }
   return (
-    <Switcher id={relay_id} checked={checked} onSwitchChange={handleClick} />
+    <Switcher id={relay_id} checked={switchPosition} onSwitchChange={handleClick} />
   );
 }
 

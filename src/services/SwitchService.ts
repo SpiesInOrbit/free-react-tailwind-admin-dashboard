@@ -31,7 +31,7 @@ const update = async (relay_id: string, checked: boolean) => {
   // TODO: fix last value on api maybe add a status label
   const lastvalue = checked ? 'on' : 'off';
   const response = await apiClient.patch(
-    `/i2c-relay/${relay_id}`,
+    `/${relay_id}`,
     { lastvalue });
   return response.data;
 }
