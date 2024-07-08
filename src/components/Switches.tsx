@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useQuery } from "react-query";
-import Switch from './Switch';
-import SwitchService, { SwitchType } from '../../services/SwitchService';
+import Switch from './Switchers/Switch';
+import SwitchService, { SwitchType } from '../services/SwitchService';
 
 
 const Switches: React.FC = () => {
