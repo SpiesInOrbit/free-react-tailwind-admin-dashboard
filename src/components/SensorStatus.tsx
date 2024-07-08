@@ -1,29 +1,73 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react';
+import { useQuery } from 'react-query';
+import SensorService, { SensorType, SensorStatusType } from '../services/SensorService';
 import CardDataStats from '../components/CardDataStats';
 import { TempIcon, HumidityIcon } from '../pages/UiElements/Icons';
 
-const SensorStatus = () => {
+const SensorStatus: React.FC = () => {
 
   const cardIcons: cardIcons = {
     TEMP_ICON: <TempIcon />,
     HUMIDITY_ICON: <HumidityIcon />,
   }
 
+  type SensorStatus = {
+    name: string;
+    type: string;
+    value: number;
+  }
+
+  const [sensors, setSensors] = useState<SensorStatus[] | []>([]);
+
+  const {
+    isLoading, isError, error, refetch: getAllSensors
+  } = useQuery("sensors",
+    async () => {
+      return await SensorService.read();
+    },
+    {
+      enabled: true,
+      retry: 3,
+      onSuccess: (res) => {
+        console.log(res);
+        const tempData: Partial<SensorType> = {
+          name: "Temperature",
+          value: res?.temperature.toString(),
+        }
+        const humidityData: Partial<SensorType> = {
+          name: "Humidity",
+          value: res?.humidity.toString(),
+        }
+        setSensors([tempData, humidityData]);
+      },
+      onError: (err: any) => {
+        console.error(err);
+      }
+    }
+  );
+
   const cardStats = [
     { title: "Temperature", total: "3.47", rate: "0.43", levelUp: true, icon: 'TEMP_ICON' },
     { title: "Humidity", total: "3.46", rate: "0.43", levelDown: true, icon: 'HUMIDITY_ICON' },
   ];
+
+  useEffect(() => {
+    getAllSensors();
+  }, [])
+
+  if (isLoading) return <div>Loading...</div>;
+  if (isError) return <div>Error: {error.message}</div>;
   return (
     <>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-7.5">
-        {cardStats.map((item, index) => (
+        {sensors && sensors?.map((item, index) => (
           <CardDataStats
-            title={item.title}
-            total={item.total?.toString()}
-            rate={item.rate?.toString()}
-            key={index}
-            levelDown={item?.levelDown}
-            levelUp={item?.levelUp}
+            title={item?.name}
+            total={item?.value.toString()}
+            rate={'0'}
+            key={item.id}
+            levelDown={false}
+            levelUp={true}
           >
             <>{cardIcons[item.icon as keyof typeof cardIcons]}</>
           </CardDataStats>

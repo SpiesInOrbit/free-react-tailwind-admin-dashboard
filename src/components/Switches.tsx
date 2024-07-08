@@ -26,7 +26,7 @@ const Switches: React.FC = () => {
         setSwitches(res);
       },
       onError: (err: any) => {
-        console.log(err);
+        console.error(err);
       }
     }
   );

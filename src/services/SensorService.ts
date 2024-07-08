@@ -15,6 +15,11 @@ export interface SensorType {
   dt: Date;
 }
 
+export interface SensorStatusType {
+  temperature: string;
+  humidity: string;
+}
+
 const read = async () => {
   const response = await apiClient.get<SensorType[]>("");
   console.log(response.data);
