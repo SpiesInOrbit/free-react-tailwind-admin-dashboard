@@ -38,7 +38,11 @@ const SensorStatus: React.FC = () => {
           name: "Humidity",
           value: res?.humidity.toString(),
         }
-        setSensors([tempData, humidityData]);
+        const cpuData: Partial<CpuDataType> = {
+          name: "CPU",
+          value: res?.value.toString(),
+        }
+        setSensors([tempData, humidityData, cpuData]);
       },
       onError: (err: any) => {
         console.error(err);

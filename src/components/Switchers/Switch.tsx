@@ -28,7 +28,7 @@ const Switch: React.FC<SwitchProps> = ({
     error: switchMutateError
   } = useMutation<any, Error>(
     async () => {
-      return await SwitcherService.update(relay_id, !checked);
+      return await SwitcherService.update(relay_id, checked);
     },
     {
       onSuccess: (res) => {

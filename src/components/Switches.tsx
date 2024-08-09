@@ -41,6 +41,7 @@ const Switches: React.FC = () => {
         {switchIsLoading && <div>Loading...</div>}
         {switchIsError && <div>{switchError?.message}</div>}
         {!switchIsLoading && !switchIsError && switches?.map((sw) => {
+          console.log(sw);
           return (
             <div className="tile flex gap-2 items-center">
               <h2 className="font-medium text-black dark:text-white flex-initial">{sw.name}</h2>
