@@ -11,13 +11,13 @@ const apiClient = axios.create({
 export interface SwitchType {
   relay_id: string;
   name: string;
-  lastvalue: string;
+  value: string;
 }
 /*
 export type SwitchType = {
   relay_id: string | null;
   label: string;
-  lastvalue: string;
+  value: string;
 }
   */
 
@@ -29,10 +29,10 @@ const findAll = async () => {
 
 const update = async (relay_id: string, checked: boolean) => {
   // TODO: fix last value on api maybe add a status label
-  const lastvalue = checked ? 'on' : 'off';
+  const value = checked ? 'on' : 'off';
   const response = await apiClient.patch(
     `/${relay_id}`,
-    { lastvalue });
+    { value });
   return response.data;
 }
 

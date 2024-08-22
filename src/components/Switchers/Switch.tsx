@@ -5,7 +5,7 @@ import SwitcherService from '../../services/SwitchService';
 
 type UpdateSwitchProps = {
   relay_id: string;
-  lastvalue: string;
+  value: string;
 }
 
 type SwitchProps = {
@@ -54,7 +54,7 @@ const Switch: React.FC<SwitchProps> = ({
         console.error(err);
       }
     }
-    // setEnabled(() => mutationRes.data.lastvalue === 'on');
+    // setEnabled(() => mutationRes.data.value === 'on');
   }
   if (switchMutateIsError) {
     return (

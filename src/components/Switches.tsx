@@ -46,7 +46,7 @@ const Switches: React.FC = () => {
             <div className="tile flex gap-2 items-center">
               <h2 className="font-medium text-black dark:text-white flex-initial">{sw.name}</h2>
               <div className="flex-initial">
-                <Switch key={sw.relay_id} label={sw.name} relay_id={sw.relay_id} checked={sw.lastvalue === 'on' ? true : false} />
+                <Switch key={sw.relay_id} label={sw.name} relay_id={sw.relay_id} checked={sw.value === 'on' ? true : false} />
               </div>
             </div>
           )
