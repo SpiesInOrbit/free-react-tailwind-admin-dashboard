@@ -8,7 +8,7 @@ import SensorsStatus from '../components/SensorStatus';
 
 const Dashboard: React.FC = () => {
 
-  const imgUrl = new URL('/images/camera1/7.jpg', import.meta.url).href
+  const imgUrl = new URL('/images/camera1/11245.jpg', import.meta.url).href
 
   return (
     <div>

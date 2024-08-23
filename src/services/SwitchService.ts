@@ -1,5 +1,5 @@
 import axios from "axios";
-import { apiUrl } from '../common/constants'
+import { apiUrl } from '../common/constants';
 
 const apiClient = axios.create({
   baseURL: `${apiUrl}/i2c-relay`,
