@@ -5,21 +5,21 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build", 
+    "build": "vite build",
     "preview": "vite preview"
   },
   "author": {
-    "name": "TailAdmin",
-    "email": "hello@tailadmin.com",
-    "url": "https://tailadmin.com"
+    "name": "PiQuadic Free Admin",
+    "email": "info@piquadic.com",
+    "url": "https://piquadic.com"
   },
   "dependencies": {
     "apexcharts": "^3.41.0",
-    "axios": "^1.7.2",
+    "axios": "^1.7.5",
     "flatpickr": "^4.6.13",
     "headlessui": "^0.0.0",
     "file-loader": "^6.2.0",
-    "jsvectormap": "^1.6.0",
+    "jsvectormap": "^1.5.3",
     "match-sorter": "^6.3.1",
     "react": "^18.2.0",
     "react-apexcharts": "^1.4.1",
