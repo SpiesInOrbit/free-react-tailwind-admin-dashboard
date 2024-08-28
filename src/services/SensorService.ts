@@ -9,27 +9,55 @@ const apiClient = axios.create({
 });
 
 export interface SensorType {
-  sensor_id: string;
+  id: string;
   name: string;
   value: string;
+  sensor_id?: string;
+  icon?: string;
   dt: Date;
 }
 
-export interface SensorStatusType {
-  temperature: string;
-  humidity: string;
+export const handleSensorResponse = (setFunction: (val: SensorType | null) => void) => {
+  return {
+    enabled: true,
+    retry: 3,
+    onSuccess: (res: SensorType) => {
+      console.log('SensorData:', res);
+      const data: SensorType = {
+        id: res.id.toString(),
+        name: res.name.toString(),
+        value: res.value,
+        icon: res.sensor_id ? res.sensor_id.toString().toUpperCase() : 'DEFAULT',
+        dt: res.dt,
+      }
+      if (data?.value) setFunction(data);
+    },
+    onError: (err: any) => {
+      console.error(err);
+    }
+  }
 }
 
-const read = async () => {
-  const response = await apiClient.get<SensorType[]>("");
-  console.log(response.data);
+
+const getTemp = async () => {
+  // TODO: fix last value on api maybe add a status label
+  const hours = 0; // zero returns latest 
+  const response = await apiClient.get<SensorType>(`/tempsensor/${hours}`);
   return response.data;
 }
+
 
 const getTempLog = async () => {
   // TODO: fix last value on api maybe add a status label
   const hours = 24; // default to 24 hours
   const response = await apiClient.get<SensorType[]>(`/tempsensor/${hours}`);
+  return response.data;
+}
+
+const getHumidity = async () => {
+  // TODO: fix last value on api maybe add a status label
+  const hours = 0; // zero returns latest 
+  const response = await apiClient.get<SensorType>(`/humiditysensor/${hours}`);
   return response.data;
 }
 
@@ -41,6 +69,6 @@ const getHumidityLog = async () => {
 }
 
 
-const SensorService = { read, getTempLog, getHumidityLog };
+const SensorService = { handleSensorResponse, getTempLog, getTemp, getHumidity, getHumidityLog };
 
 export default SensorService;
