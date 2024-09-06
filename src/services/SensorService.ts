@@ -15,6 +15,7 @@ export interface SensorType {
   sensor_id?: string;
   icon?: string;
   dt: Date;
+  lastvalue: string;
 }
 
 export const handleSensorResponse = (setFunction: (val: SensorType | null) => void) => {
@@ -26,7 +27,7 @@ export const handleSensorResponse = (setFunction: (val: SensorType | null) => vo
       const data: SensorType = {
         id: res.id.toString(),
         name: res.name.toString(),
-        value: res.value,
+        value: parseFloat(res.value).toFixed(2),
         icon: res.sensor_id ? res.sensor_id.toString().toUpperCase() : 'DEFAULT',
         dt: res.dt,
       }
