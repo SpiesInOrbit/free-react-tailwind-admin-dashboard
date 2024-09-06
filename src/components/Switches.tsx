@@ -8,6 +8,7 @@ const Switches: React.FC = () => {
 
   const [switches, setSwitches] = useState<SwitchType[]>();
 
+  // get all Switches
   const {
     isLoading: switchIsLoading,
     isError: switchIsError,
@@ -22,7 +23,7 @@ const Switches: React.FC = () => {
       enabled: true,
       retry: 3,
       onSuccess: (res) => {
-        console.log(res);
+        console.log('Switch list results', res);
         setSwitches(res);
       },
       onError: (err: any) => {
@@ -40,13 +41,13 @@ const Switches: React.FC = () => {
       <div className="container m-auto grid grid-cols-2 grid-rows-2 gap-2">
         {switchIsLoading && <div>Loading...</div>}
         {switchIsError && <div>{switchError?.message}</div>}
-        {!switchIsLoading && !switchIsError && switches?.map((sw) => {
-          console.log(sw);
+        {!switchIsLoading && !switchIsError && switches?.map((sw, x) => {
+          console.log(JSON.stringify(sw, null, 2));
           return (
-            <div className="tile flex gap-2 items-center">
+            <div key={x} className="tile flex gap-2 items-center">
               <h2 className="font-medium text-black dark:text-white flex-initial">{sw.name}</h2>
               <div className="flex-initial">
-                <Switch key={sw.relay_id} label={sw.name} relay_id={sw.relay_id} checked={sw.value === 'on' ? true : false} />
+                <Switch relay_id={sw.relay_id} checked={sw.position == 0 ? true : false} />
               </div>
             </div>
           )
