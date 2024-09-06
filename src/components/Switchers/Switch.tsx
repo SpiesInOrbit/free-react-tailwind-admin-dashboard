@@ -5,12 +5,11 @@ import SwitcherService from '../../services/SwitchService';
 
 type UpdateSwitchProps = {
   relay_id: string;
-  value: string;
+  position: string;
 }
 
 type SwitchProps = {
   relay_id: string;
-  label: string;
   checked: boolean;
 }
 
@@ -28,11 +27,16 @@ const Switch: React.FC<SwitchProps> = ({
     error: switchMutateError
   } = useMutation<any, Error>(
     async () => {
-      return await SwitcherService.update(relay_id, checked);
+      console.log(`Updating switch ${relay_id} from ${checked} to ${!checked}`);
+      return await SwitcherService.update(relay_id, !checked);
     },
     {
       onSuccess: (res) => {
-        setSwitchPosition(!switchPosition);
+        console.log({ switchPosition });
+        setSwitchPosition((prev) => {
+          console.log({ prev });
+          return !prev;
+        });
         console.log(res);
       },
       onError: (err) => {
@@ -43,6 +47,7 @@ const Switch: React.FC<SwitchProps> = ({
   //const updatedSwitch = SwitcherService.update(relay_id, checked);
   useEffect(() => {
     if (switchMutateIsLoading) setStatus("Loading");
+    if (switchMutateIsError) setStatus("Error");
   }, [switchMutateIsLoading]);
 
   const handleClick = () => {
@@ -53,8 +58,8 @@ const Switch: React.FC<SwitchProps> = ({
       catch (err) {
         console.error(err);
       }
+      console.log('post', switchPosition)
     }
-    // setEnabled(() => mutationRes.data.value === 'on');
   }
   if (switchMutateIsError) {
     return (
@@ -68,7 +73,7 @@ const Switch: React.FC<SwitchProps> = ({
     )
   }
   return (
-    <Switcher id={relay_id} checked={switchPosition} onSwitchChange={handleClick} />
+    <Switcher onClick={handleClick} id={relay_id} checked={switchPosition} />
   );
 }
 
