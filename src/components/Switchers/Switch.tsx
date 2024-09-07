@@ -27,20 +27,15 @@ const Switch: React.FC<SwitchProps> = ({
     error: switchMutateError
   } = useMutation<any, Error>(
     async () => {
-      console.log(`Updating switch ${relay_id} from ${checked} to ${!checked}`);
-      return await SwitcherService.update(relay_id, !checked);
+      return await SwitcherService.update(relay_id, !switchPosition);
     },
     {
       onSuccess: (res) => {
-        console.log({ switchPosition });
-        setSwitchPosition((prev) => {
-          console.log({ prev });
-          return !prev;
-        });
-        console.log(res);
+        console.log({ res });
+        setSwitchPosition((prev) => !prev);
       },
       onError: (err) => {
-        console.log(err);
+        console.error(err);
       },
     }
   );
@@ -58,7 +53,6 @@ const Switch: React.FC<SwitchProps> = ({
       catch (err) {
         console.error(err);
       }
-      console.log('post', switchPosition)
     }
   }
   if (switchMutateIsError) {

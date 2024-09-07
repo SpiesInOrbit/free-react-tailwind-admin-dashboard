@@ -19,7 +19,7 @@ const Switcher: React.FC<SwitcherProps> = ({ id, checked, onClick }) => {
             type="checkbox"
             id={id}
             className="sr-only"
-            onChange={(e) => { if (onClick) onClick() }}
+            onChange={() => { if (onClick) onClick() }}
           />
           <div className="block h-8 w-14 rounded-full bg-meta-9 dark:bg-[#5A616B]"></div>
           <div
