@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 
+import { ReactQueryDevtools } from 'react-query/devtools'
 import Loader from './common/Loader';
 import PageTitle from './components/PageTitle';
 import Dashboard from './pages/Dashboard';
@@ -45,6 +46,7 @@ function App() {
           }
         />
       </Routes>
+      <ReactQueryDevtools initialIsOpen={false} />
     </DefaultLayout>
   );
 }
