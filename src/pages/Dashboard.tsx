@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { CameraIcon } from './UiElements/Icons';
 import Switches from '../components/Switches';
 import SensorsStatus from '../components/SensorStatus';
+import TempHumidity from '../components/Charts/TempHumidity';
 
 
 
@@ -13,6 +14,7 @@ const Dashboard: React.FC = () => {
   return (
     <div>
       <SensorsStatus />
+      <TempHumidity />
       <div className="mt-4 grid grid-cols-12 gap-8 md:mt-6 md:gap-6 2xl:mt-7.5 2xl:gap-10">
         <div className="col-span-full rounded-sm border border-stroke bg-white py-6 px-7.5 shadow-default dark:border-strokedark dark:bg-boxdark">
           <div className="col-span-12 xl:col-span-8">
