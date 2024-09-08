@@ -23,7 +23,6 @@ const Switches: React.FC = () => {
       enabled: true,
       retry: 3,
       onSuccess: (res) => {
-        console.log('Switch list results', res);
         setSwitches(res);
       },
       onError: (err: any) => {
@@ -42,7 +41,6 @@ const Switches: React.FC = () => {
         {switchIsLoading && <div>Loading...</div>}
         {switchIsError && <div>{switchError?.message}</div>}
         {!switchIsLoading && !switchIsError && switches?.map((sw, x) => {
-          console.log(JSON.stringify(sw, null, 2));
           return (
             <div key={x} className="tile flex gap-2 items-center">
               <h2 className="font-medium text-black dark:text-white flex-initial">{sw.name}</h2>

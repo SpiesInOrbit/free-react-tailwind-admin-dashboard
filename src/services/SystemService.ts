@@ -22,7 +22,6 @@ export const handleSystemResponse = (setFunction: (val: SystemType | null) => vo
     enabled: true,
     retry: 3,
     onSuccess: (res: SystemType) => {
-      console.log('SystemData:', res);
       const data: SystemType = {
         id: res?.id.toString(),
         name: res.name.toString(),

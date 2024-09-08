@@ -23,7 +23,6 @@ export const handleSensorResponse = (setFunction: (val: SensorType | null) => vo
     enabled: true,
     retry: 3,
     onSuccess: (res: SensorType) => {
-      console.log('SensorData:', res);
       const data: SensorType = {
         id: res.id.toString(),
         name: res.name.toString(),

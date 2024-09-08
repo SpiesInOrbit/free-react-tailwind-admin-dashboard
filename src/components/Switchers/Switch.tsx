@@ -31,7 +31,6 @@ const Switch: React.FC<SwitchProps> = ({
     },
     {
       onSuccess: (res) => {
-        console.log({ res });
         setSwitchPosition((prev) => !prev);
       },
       onError: (err) => {

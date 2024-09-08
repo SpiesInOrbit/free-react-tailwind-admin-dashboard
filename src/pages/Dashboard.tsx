@@ -8,7 +8,7 @@ import SensorsStatus from '../components/SensorStatus';
 
 const Dashboard: React.FC = () => {
 
-  const imgUrl = new URL('/images/camera1/11245.jpg', import.meta.url).href
+  const imgUrl = new URL('../../public/images/camera1/12310.jpg', import.meta.url).href
 
   return (
     <div>
@@ -29,7 +29,7 @@ const Dashboard: React.FC = () => {
                       name="camera1"
                       id="camera1"
                       className="sr-only"
-                      onClick={() => { console.log("clicked") }}
+                      onClick={() => { console.log("camer1 button clicked") }}
                     />
                   </label>
                 </div>

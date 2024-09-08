@@ -23,12 +23,10 @@ export type SwitchType = {
 
 const findAll = async () => {
   const response = await apiClient.get<SwitchType[]>("");
-  console.log('Search results:', response.data);
   return response.data;
 }
 
 const update = async (relay_id: string, checked: boolean) => {
-  console.log('Update relay input:', relay_id, checked);
   // TODO: fix last value on api maybe add a status label
   const position = checked ? 'ON' : 'OFF';
   const response = await apiClient.patch(
