@@ -5,6 +5,8 @@ import DropdownUser from './DropdownUser';
 import LogoIcon from '../../images/logo/logo-icon.svg';
 import DarkModeSwitcher from './DarkModeSwitcher';
 
+import SensorsStatus from '../SensorStatus';
+
 const Header = (props: {
   sidebarOpen: string | boolean | undefined;
   setSidebarOpen: (arg0: boolean) => void;
@@ -57,6 +59,7 @@ const Header = (props: {
         </div>
 
         <div className="hidden sm:block">
+          <SensorsStatus />
         </div>
 
         <div className="flex items-center gap-3 2xsm:gap-7">
