@@ -31,7 +31,7 @@ const Dashboard: React.FC = () => {
                       name="camera1"
                       id="camera1"
                       className="sr-only"
-                      onClick={() => { console.log("camer1 button clicked") }}
+                      onClick={() => { console.log("camera1 button clicked") }}
                     />
                   </label>
                 </div>

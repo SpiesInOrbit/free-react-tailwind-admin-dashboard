@@ -1,6 +1,8 @@
+import React, { useEffect, useState, useMemo } from 'react';
 import { ApexOptions } from 'apexcharts';
-import React, { useState } from 'react';
+import { useQuery } from 'react-query';
 import ReactApexChart from 'react-apexcharts';
+import SensorService, { TempHumidityState, handleSensorLogResponse } from '../../services/SensorService';
 
 const options: ApexOptions = {
   legend: {
@@ -21,7 +23,6 @@ const options: ApexOptions = {
       left: 0,
       opacity: 0.1,
     },
-
     toolbar: {
       show: false,
     },
@@ -82,21 +83,15 @@ const options: ApexOptions = {
     },
   },
   xaxis: {
-    type: 'category',
-    categories: [
-      'Sep',
-      'Oct',
-      'Nov',
-      'Dec',
-      'Jan',
-      'Feb',
-      'Mar',
-      'Apr',
-      'May',
-      'Jun',
-      'Jul',
-      'Aug',
-    ],
+    type: 'datetime',
+    labels: {
+      show: true,
+      rotate: -180,
+      rotateAlways: true,
+      style: {
+        fontSize: '1.5em',
+      },
+    },
     axisBorder: {
       show: false,
     },
@@ -110,32 +105,41 @@ const options: ApexOptions = {
         fontSize: '0px',
       },
     },
-    min: 0,
-    max: 100,
+    min: 20,
+    max: 30,
   },
 };
 
-interface ChartOneState {
-  series: {
-    name: string;
-    data: number[];
-  }[];
-}
+const requestTempLog = async () => {
+  return await SensorService.getTempLog(6);
+};
+
 
 const TempHumidity: React.FC = () => {
-  const [state, setState] = useState<ChartOneState>({
-    series: [
-      {
-        name: 'Product One',
-        data: [23, 11, 22, 27, 13, 22, 37, 21, 44, 22, 30, 45, 23, 11, 22, 27, 13, 22, 37, 21, 44, 22, 30, 45, 23, 11, 22, 27, 13, 22, 37, 21, 44, 22, 30, 45, 23, 11, 22, 27, 13, 22, 37, 21, 44, 22, 30, 45, 23, 11, 22, 27, 13, 22, 37, 21, 44, 22, 30, 45, 23, 11, 22, 27, 13, 22, 37, 21, 44, 22, 30, 45, 23, 11, 22, 27, 13, 22, 37, 21, 44, 22, 30, 45],
-      },
-
-      {
-        name: 'Product Two',
-        data: [30, 25, 36, 30, 45, 35, 64, 52, 59, 36, 39, 30, 25, 36, 30, 45, 35, 64, 52, 59, 36, 39, 30, 25, 36, 30, 45, 35, 64, 52, 59, 36, 39, 30, 25, 36, 30, 45, 35, 64, 52, 59, 36, 39, 30, 25, 36, 30, 45, 35, 64, 52, 59, 36, 39, 51, 30, 25, 36, 30, 45, 35, 64, 52, 59, 36, 39, 30, 25, 36, 30, 45, 35, 64, 52, 59, 36, 39, 30, 25, 36, 30, 45, 35],
-      },
-    ],
+  const [state, setState] = useState<TempHumidityState>({
+    series: [],
   });
+
+  const {
+    data,
+    isLoading,
+    isError,
+    error,
+    refetch: getTempLogData
+  } = useQuery('tempLog', requestTempLog, handleSensorLogResponse(setState));
+
+  useEffect(() => {
+    getTempLogData();
+  }, [])
+
+  const categories = useMemo(() => {
+    return data?.data?.map((series) => {
+      const dateLabelDate = new Date(series.updatedAt);
+      const hours = ('0' + dateLabelDate.getHours()).slice(-2);
+      const minutes = ('0' + dateLabelDate.getMinutes()).slice(-2);
+      return `${hours}:${minutes}`;
+    });
+  }, [data]);
 
   const handleReset = () => {
     setState((prevState) => ({
@@ -153,7 +157,7 @@ const TempHumidity: React.FC = () => {
               <span className="block h-2.5 w-full max-w-2.5 rounded-full bg-primary"></span>
             </span>
             <div className="w-full">
-              <p className="font-semibold text-primary">Total Revenue</p>
+              <p className="font-semibold text-primary">Temperature</p>
               <p className="text-sm font-medium">12.04.2022 - 12.05.2022</p>
             </div>
           </div>
@@ -162,7 +166,7 @@ const TempHumidity: React.FC = () => {
               <span className="block h-2.5 w-full max-w-2.5 rounded-full bg-secondary"></span>
             </span>
             <div className="w-full">
-              <p className="font-semibold text-secondary">Total Sales</p>
+              <p className="font-semibold text-secondary">Humidity</p>
               <p className="text-sm font-medium">12.04.2022 - 12.05.2022</p>
             </div>
           </div>
@@ -184,12 +188,15 @@ const TempHumidity: React.FC = () => {
 
       <div>
         <div id="chartOne" className="-ml-5">
-          <ReactApexChart
-            options={options}
-            series={state.series}
-            type="area"
-            height={350}
-          />
+          {isLoading && <div>Loading...</div>}
+          {isError && <div>Error...</div>}
+          {!isLoading && !isError && (
+            <ReactApexChart
+              options={{ ...options, xaxis: { categories } }}
+              series={state.series}
+              type="area"
+              height={350}
+            />)}
         </div>
       </div>
     </div>
