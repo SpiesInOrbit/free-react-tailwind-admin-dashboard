@@ -71,11 +71,15 @@ const SensorStatus: React.FC = () => {
     getTempData();
   }, [])
 
+  const strToFloatToStr = (value: string): string => {
+    return parseFloat(value).toFixed(2).toString();
+  }
+
   const TempStats = useCallback(() => {
     return (
       <CardDataStats
         title={temp?.name || ''}
-        total={temp?.value.toString() || ''}
+        total={strToFloatToStr(temp?.value || '0')}
         rate={'0'}
         key={temp?.id}
         levelDown={false}
@@ -90,7 +94,7 @@ const SensorStatus: React.FC = () => {
     return (
       <CardDataStats
         title={humidity?.name || ''}
-        total={humidity?.value.toString() || ''}
+        total={strToFloatToStr(humidity?.value || '0')}
         rate={'0'}
         key={humidity?.id || ''}
         levelDown={false}
@@ -105,7 +109,7 @@ const SensorStatus: React.FC = () => {
     return (
       <CardDataStats
         title={cpuTemp?.name || ''}
-        total={cpuTemp?.value.toString() || ''}
+        total={strToFloatToStr(cpuTemp?.value || '0')}
         rate={'0'}
         key={cpuTemp?.id}
         levelDown={false}
@@ -120,7 +124,7 @@ const SensorStatus: React.FC = () => {
     return (
       <CardDataStats
         title={diskUsage?.name || ''}
-        total={diskUsage?.value.toString() || ''}
+        total={strToFloatToStr(diskUsage?.value || '0')}
         rate={'0'}
         key={diskUsage?.id}
         levelDown={false}
