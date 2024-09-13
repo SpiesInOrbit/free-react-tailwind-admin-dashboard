@@ -22,7 +22,15 @@ const Settings = () => {
                 <p className="p-3">
                   Our goal is to help you learn to grow in an urban setting in a way that fits your unique and busy lifestyle, so you can have fresh foods or thriving plants without the headache of traditional gardening and even if you don’t have hours to dedicate to your craft.
                 </p>
-
+                <a
+                  className='text-blue-900 hover:text-green'
+                  href="https://piquadic.com"
+                  target='_blank'
+                  rel="noopener"
+                  aria-label='PiQuadic'
+                >
+                  https://piquadic.com
+                </a>
               </div>
             </div>
           </div>
