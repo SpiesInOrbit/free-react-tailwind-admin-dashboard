@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { useQuery } from "react-query";
 import Switch from './Switchers/Switch';
 import SwitchService, { SwitchType } from '../services/SwitchService';
+import Loader from '../common/Loader';
 
 
 const Switches: React.FC = () => {
@@ -37,8 +38,8 @@ const Switches: React.FC = () => {
 
   return (
     <>
-      <div className="container m-auto grid grid-cols-2 grid-rows-2 gap-2">
-        {switchIsLoading && <div>Loading...</div>}
+      <div className="container m-auto grid grid-cols-4 grid-rows-1 gap-2">
+        {switchIsLoading && <Loader />}
         {switchIsError && <div>{switchError?.message}</div>}
         {!switchIsLoading && !switchIsError && switches?.map((sw, x) => {
           return (
