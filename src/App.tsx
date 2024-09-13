@@ -6,6 +6,7 @@ import Loader from './common/Loader';
 import PageTitle from './components/PageTitle';
 import Dashboard from './pages/Dashboard';
 import Settings from './pages/Settings';
+import Promotion from './pages/Promotion';
 import DefaultLayout from './layout/DefaultLayout';
 
 
@@ -40,8 +41,8 @@ function App() {
           path="/settings"
           element={
             <>
-              <PageTitle title="Settings | TailAdmin - Tailwind CSS Admin Dashboard Template" />
-              <Settings />
+              <PageTitle title="Pi Quadic | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+              <Promotion />
             </>
           }
         />
